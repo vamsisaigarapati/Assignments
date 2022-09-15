@@ -5,7 +5,6 @@ def readcsv(fname):
     '''Reads a csv file and returns its contents'''
     with open(fname, 'r') as f:
         reader = csv.reader(f)
-        print(reader)
         lines = list(reader)
     return lines
 
