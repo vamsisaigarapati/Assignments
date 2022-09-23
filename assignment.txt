@@ -1,0 +1,48 @@
+import csv
+
+fname_in = r"C:\Users\vamsisai.garapati\Documents\reg_pbp_2019_subset.csv"
+
+gidx, homex, awayx = "game_id", "home_team", "away_team"
+hscorex, ascorex = "total_home_score", "total_away_score"
+gdatex = "game_date"
+
+def main():
+    with open(fname_in, 'r', encoding = "utf-8") as f:
+        dict_r = csv.DictReader(f)
+        game_score={}
+        for row in dict_r:
+            diff=int(row[hscorex])-int(row[ascorex])
+            if row[gidx] in game_score.keys():
+                game_score[row[gidx]].add(diff)
+            else:
+                game_score[row[gidx]]={diff}
+    n_values=[7,10] # given n values in question
+    #ngames: number of games
+    ngames=len(game_score)
+    print(f"There were {ngames} games\n")
+    for n in n_values:
+        #nwins: number of wins regardless of team bet
+        nwins=0
+        #nlosses: number of wagers that could be won by choosing correct team
+        nlosses=0
+        #nowins: number of losses regardless of team bet
+        nowins=0
+        print(f"if the value of n is {n}\n")
+        for i,j in game_score.items():
+            max_of_game=max(j)
+            min_of_game=min(j)
+            if max_of_game>=n and min_of_game<=-n:
+                nwins=nwins+1
+            elif max_of_game>=n or min_of_game<=(-n):
+                nlosses=nlosses+1
+            elif max_of_game<n and min_of_game>(-n):
+                nowins=nowins+1
+            #calculating percentages
+            winpct=(nwins/ngames)*100
+            losspct=(nlosses/ngames)*100
+            nowinpct=(nowins/ngames)*100
+        print(f"{nwins} were wins regardless of team bet on ({winpct}%)")
+        print(f"{nlosses} were wins if correct team was bet on ({losspct}%)")
+        print(f"{nowins} were losses regardless of team bet on ({nowinpct}%)\n")
+
+main()
