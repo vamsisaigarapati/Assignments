@@ -6,7 +6,7 @@ path = "C://Users//vgara1//Downloads//Asn2CountRequests//RequestFiles"
 subject_codes = ["RSC\d\d\d", "BWE\d\d\d", "RPD\d\d\d", "SMP\d\d\d"]
 crs_req_cnt = {}
 dir_list = os.listdir(path)
-for file_name in os.listdir(path):
+for file_name in dir_list:
     with open(path+'/'+file_name, 'r', encoding = "utf-8") as f:
         dict_r = csv.DictReader(f)
         for request in dict_r:
