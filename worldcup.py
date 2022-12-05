@@ -18,7 +18,6 @@ for rec in list_of_recs:
             player_years[int(temp[2])].update({rec['Player']: temp[0]})
 list_of_years=list(player_years.keys())
 list_of_years.sort()
-#1962: Vava (4), Garrincha (4), Amarildo (3), Zito (1), Zagallo (1), Pelé (1)
 for year in list_of_years:
     tmp=', '.join(f"{key} ({value})" for key, value in player_years[year].items())
     print(f"{year}: {tmp}")
