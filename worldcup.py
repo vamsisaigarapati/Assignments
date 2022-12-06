@@ -11,13 +11,14 @@ player_years={}
 for rec in list_of_recs:
     for goals in rec['Goals by World Cup'].split(','):
         temp=goals.strip().split(' ')
-        if int(temp[2]) in player_years:
-            player_years[int(temp[2])].update({rec['Player']:temp[0]})
-        else:
-            player_years[int(temp[2])]={}
-            player_years[int(temp[2])].update({rec['Player']: temp[0]})
+        if int(temp[0])!=0:
+            if int(temp[2]) in player_years:
+                player_years[int(temp[2])].update({rec['Player']:int(temp[0])})
+            else:
+                player_years[int(temp[2])]={}
+                player_years[int(temp[2])].update({rec['Player']: int(temp[0])})
 list_of_years=list(player_years.keys())
 list_of_years.sort()
 for year in list_of_years:
-    tmp=', '.join(f"{key} ({value})" for key, value in player_years[year].items())
+    tmp = ', '.join(f"{i[0]} ({i[1]})" for i in sorted(player_years[year].items(), key=lambda x: (-x[1], x[0])))
     print(f"{year}: {tmp}")
